@@ -1,0 +1,53 @@
+# Ignore macOS metadata
+.DS_Store
+
+# Ignore Windows metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Ignore IDE settings (VSCode, IntelliJ, Eclipse, etc.)
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# Ignore build artifacts
+/dist/
+/build/
+/out/
+/bin/
+/target/
+
+# Ignore logs
+*.log
+
+# Ignore environment and config files (optional)
+.env
+*.env
+*.local
+*.config
+
+# Node.js (if applicable)
+node_modules/
+
+# Java compiled files
+*.class
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+
+# Backup/swap files
+*.swp
+*.swo
+*~
+
+# Optional: ignore your SSH or credential files
+*.pem
+*.key
+*.crt
