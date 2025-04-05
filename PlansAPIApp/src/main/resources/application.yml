@@ -1,0 +1,28 @@
+# Conversion to YAML from Properties formar report
+# Warnings:
+# - The yaml file had comments which are lost in the refactoring!
+spring:
+  application:
+    name: PlansAPIApp
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: bhushan
+    password: bhushan
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+plans-api:
+  messages:
+    plan-save-success: Plan Saved Sucessfully
+    plan-save-failed: Plan Save Failed
+    plan-update-success: Plan Updated Sucessfully
+    plan-update-failed: Plan Update Failed
+    plan-delete-success: Plan Deleted Sucessfully
+    plan-delete-failed: Plan Delete Failed
+    plan-status-change-success: Plan Status Changed Sucessfully
+    plan-status-change-failed: Plan Status Change Failed

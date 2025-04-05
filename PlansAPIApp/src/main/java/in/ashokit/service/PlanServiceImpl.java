@@ -73,7 +73,7 @@ public class PlanServiceImpl implements PlanService {
 	@Override
 	public boolean chnagePlanStatus(Integer planId, String status) {
 		Optional<Plan> plan = planRepo.findById(planId);
-		if(plan.isPresent()) {
+		if (plan.isPresent()) {
 			Plan toUpPlan = plan.get();
 			toUpPlan.setActive(status);
 			planRepo.save(toUpPlan);

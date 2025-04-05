@@ -3,7 +3,6 @@ package in.ashokit.rest;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,14 +13,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import in.ashokit.constants.AppConstants;
 import in.ashokit.entity.Plan;
+import in.ashokit.props.AppProperties;
 import in.ashokit.service.PlanService;
 
 @RestController
 public class PlanRestController {
 
-	@Autowired
-	PlanService planService;
+	private PlanService planService;
+
+	private Map<String, String> messages;
+
+	public PlanRestController(PlanService planService, AppProperties appProperties) {
+		this.planService = planService;
+		this.messages = appProperties.getMessages();
+		System.out.println(this.messages);
+	}
 
 	@GetMapping("/categories")
 	public ResponseEntity<Map<Integer, String>> getAllPlanCategories() {
@@ -30,7 +38,8 @@ public class PlanRestController {
 
 	@PostMapping("/createPlan")
 	public ResponseEntity<String> savePlan(@RequestBody Plan plan) {
-		String responseMsg = planService.savePlan(plan) ? "Plan Saved" : "Plan Not Saved";
+		String responseMsg = planService.savePlan(plan) ? messages.get(AppConstants.PLAN_SAVED_SUCCESS)
+				: messages.get(AppConstants.PLAN_SAVE_FAILED);
 		return new ResponseEntity<String>(responseMsg, HttpStatus.CREATED);
 	}
 
@@ -46,19 +55,23 @@ public class PlanRestController {
 
 	@PutMapping("/updatePlan")
 	public ResponseEntity<String> updatePlan(@RequestBody Plan plan) {
-		String responseMsg = planService.updatePlan(plan) ? "Plan Updated" : "Plan Not Updated";
-		return new ResponseEntity<String>(responseMsg , HttpStatus.OK);
+		String responseMsg = planService.updatePlan(plan) ? messages.get(AppConstants.PLAN_UPDATE_SUCCESS)
+				: messages.get(AppConstants.PLAN_UPDATE_FAILED);
+		return new ResponseEntity<String>(responseMsg, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/plan/{planId}")
 	public ResponseEntity<String> deletePlan(@PathVariable Integer planId) {
-		String responseMsg = planService.deletePlan(planId) ? "Plan Deleted" : "Plan Not Deleted";
+		String responseMsg = planService.deletePlan(planId) ? messages.get(AppConstants.PLAN_DELETE_SUCCESS)
+				: messages.get(AppConstants.PLAN_DELETE_FAILED);
 		return new ResponseEntity<String>(responseMsg, HttpStatus.OK);
 	}
 
 	@PutMapping("/statusChange/{planId}/{status}")
 	public ResponseEntity<String> statusChange(@PathVariable Integer planId, @PathVariable String status) {
-		String responseMsg = planService.chnagePlanStatus(planId, status) ? "Status Changes" : "Status Not Changed";
+		String responseMsg = planService.chnagePlanStatus(planId, status)
+				? messages.get(AppConstants.PLAN_STATUS_CHANGE_SUCCESS)
+				: messages.get(AppConstants.PLAN_STATUS_CHANGE_FAILED);
 		return new ResponseEntity<String>(responseMsg, HttpStatus.OK);
 	}
 
